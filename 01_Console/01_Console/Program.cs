@@ -10,7 +10,9 @@ namespace _01_Console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World");
+
+            Console.WriteLine("Hello World"); // Hello World 출력
+            Console.ReadKey();                // 키 입력 대기
         }
     }
 }
