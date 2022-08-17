@@ -146,9 +146,18 @@ namespace _01_Console
 
             // 실습 : exp가 1을 넘어 레벨업을 할 때까지 계속 추가 경험치를 입력하도록 하는 코드
             exp = 0.0f;
-            Console.WriteLine("경험치를 추가합니다");
-            Console.Write("추가할 경험치 : ");
-            temp = Console.ReadLine();
+            float tempFloat;
+
+            while (1.0f > exp)
+            {
+                Console.WriteLine($"현재 경험치 : {exp}");
+                Console.Write("추가할 경험치 : ");
+                temp = Console.ReadLine();
+                float.TryParse(temp, out tempFloat);
+
+                exp += tempFloat;
+            }
+            Console.WriteLine("레벨업!");
 
             Console.ReadKey();                // 키 입력 대기
         }
