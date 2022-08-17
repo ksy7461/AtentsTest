@@ -66,7 +66,8 @@ namespace _01_Console
 
             //-------------------------------------------------------------------------------------------------- 변수 끝
 
-            // 제어문(Control state)
+            // 제어문(Control state) - 조건문(if, switch) , 반복문
+            // 조건문
             hp = 9;
             if (hp < 3)
             {
@@ -94,12 +95,60 @@ namespace _01_Console
                     break;
             }
 
-            Console.WriteLine("경험치를 추가합니다.");
-            Console.Write("추가할 경험치 : ");
-            temp = Console.ReadLine();
-
             // 실습 :exp의 값과 추가로 입력받은 경험치의 합이 1이상이면 "레벨업"이라고 출력하고 1미만이면 합계를 출력하는 코드
 
+            //Console.WriteLine("경험치를 추가합니다.");
+            //Console.Write("추가할 경험치 : ");
+            //temp = Console.ReadLine();
+
+
+            //float tempExp;
+            //float.TryParse(temp, out tempExp);
+            //if( (exp + tempExp) >= 1.0f)
+            //{
+            //    Console.WriteLine("레벨업!");
+            //}
+            //else
+            //{
+            //    Console.WriteLine($"현재 경헙치 : {exp + tempExp}");
+            //}
+
+            // 반복문 
+
+            level = 1;
+            while(level < 3)
+            {
+                Console.WriteLine($"현재 레벨 : {level}");
+                level++;
+            }
+
+            hp = 10;
+            for (int i=0; i<3; i++)
+            {
+                Console.WriteLine($"현재 HP : {hp}");
+                hp+=10;
+            }    
+            Console.WriteLine($"최종 HP : {hp}");
+
+            level = 1;
+            do
+            {
+                Console.WriteLine($"현재 레벨 : {level}");
+
+                if(level == 2)
+                {
+                    break;
+                }
+
+                level++;
+            } while (level < 10);
+            Console.WriteLine($"최종 Level : {level}");
+
+            // 실습 : exp가 1을 넘어 레벨업을 할 때까지 계속 추가 경험치를 입력하도록 하는 코드
+            exp = 0.0f;
+            Console.WriteLine("경험치를 추가합니다");
+            Console.Write("추가할 경험치 : ");
+            temp = Console.ReadLine();
 
             Console.ReadKey();                // 키 입력 대기
         }
