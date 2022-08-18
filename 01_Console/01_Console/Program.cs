@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,50 @@ namespace _01_Console
     {
         static void Main(string[] args)
         {
+            int sumResult = Sum(10, 20);  // break point (단축기 F9)
+            Console.WriteLine(sumResult);
 
+            Print();
+
+            string name = "너굴맨";
+            int level = 2;
+            int hp = 10;
+            int maxHp = 20;
+            float exp = 0.1f;
+            float maxExp = 1.0f;
+
+            PrintCharacter(name,level,hp,maxHp,exp,maxExp);
+
+            Console.ReadKey();                // 키 입력 대기
+
+            //Main함수 끝
+        }
+
+        private static void PrintCharacter(string name,int level, int hp, int maxHp, float exp, float maxExp)
+        {
+            Console.WriteLine($"이름 : {name}");
+            Console.WriteLine($"level : {level}");
+            Console.WriteLine($"hp : {hp}");
+            Console.WriteLine($"maxHp : {maxHp}");
+            Console.WriteLine($"exp : {exp}");
+            Console.WriteLine($"maxExp : {maxExp}");
+        }
+
+        // 함수의 구성요소 : 이름 ,리턴타입, 파라메터(매개변수),함수바디
+        // 함수 이름 리턴타입 파라메터를 합쳐서 함수 프로토타입 함수의 주민등록번호
+        static int Sum(int a, int b)
+        {
+            int result = a + b;
+            return result;
+        }
+
+        static void Print()
+        {
+            Console.WriteLine("Print");
+        }
+
+        void Test()
+        {
             //Console.WriteLine("Hello World"); // Hello World 출력
             //Console.WriteLine("권세윤"); // 이름 출력
             //string str = Console.ReadLine(); // 이름 입력
@@ -73,7 +117,7 @@ namespace _01_Console
             {
                 Console.WriteLine("HP가 부족합니다.");
             }
-            else if(hp < 10)
+            else if (hp < 10)
             {
                 Console.WriteLine("HP가 적당합니다.");
             }
@@ -116,18 +160,18 @@ namespace _01_Console
             // 반복문 
 
             level = 1;
-            while(level < 3)
+            while (level < 3)
             {
                 Console.WriteLine($"현재 레벨 : {level}");
                 level++;
             }
 
             hp = 10;
-            for (int i=0; i<3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Console.WriteLine($"현재 HP : {hp}");
-                hp+=10;
-            }    
+                hp += 10;
+            }
             Console.WriteLine($"최종 HP : {hp}");
 
             level = 1;
@@ -135,7 +179,7 @@ namespace _01_Console
             {
                 Console.WriteLine($"현재 레벨 : {level}");
 
-                if(level == 2)
+                if (level == 2)
                 {
                     break;
                 }
@@ -158,8 +202,6 @@ namespace _01_Console
                 exp += tempFloat;
             }
             Console.WriteLine("레벨업!");
-
-            Console.ReadKey();                // 키 입력 대기
         }
     }
 }
