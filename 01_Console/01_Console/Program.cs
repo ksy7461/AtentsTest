@@ -11,11 +11,25 @@ namespace _01_Console
     {
         static void Main(string[] args)
         {
-            int sumResult = Sum(10, 20);  // break point (단축기 F9)
-            Console.WriteLine(sumResult);
+            //int sumResult = Sum(10, 20);  // break point (단축기 F9)
+            //Console.WriteLine(sumResult);
 
-            Print();
+            //Print();
+            //Test_Funtion();
 
+            // 실습 1. int 타입의 파라메터를 하나 받아서 그 숫자에 해당하는 구구단을 출력해주는 함수 만들기
+            // 2. 1번에서 만드는 함수는 2~9 까지 입력이 들어오면 해당 구구단 출력. 그 외의 숫자는 "잘못된 입력입니다." 라고출력
+            // 3. 메인 함수에서 숫자를 하나 입력하는 코드가 있어야 한다.
+            
+         
+
+            Console.ReadKey();                // 키 입력 대기
+
+            //Main함수 끝
+        }
+
+        private static void Test_Funtion()
+        {
             string name = "너굴맨";
             int level = 2;
             int hp = 10;
@@ -23,21 +37,15 @@ namespace _01_Console
             float exp = 0.1f;
             float maxExp = 1.0f;
 
-            PrintCharacter(name,level,hp,maxHp,exp,maxExp);
-
-            Console.ReadKey();                // 키 입력 대기
-
-            //Main함수 끝
+            PrintCharacter(name, level, hp, maxHp, exp, maxExp);
         }
 
         private static void PrintCharacter(string name,int level, int hp, int maxHp, float exp, float maxExp)
         {
-            Console.WriteLine($"이름 : {name}");
-            Console.WriteLine($"level : {level}");
-            Console.WriteLine($"hp : {hp}");
-            Console.WriteLine($"maxHp : {maxHp}");
-            Console.WriteLine($"exp : {exp}");
-            Console.WriteLine($"maxExp : {maxExp}");
+            Console.WriteLine($"┌ 이름\t: {name}─────────────────────┐");
+            Console.WriteLine($"│ level\t: {level}");
+            Console.WriteLine($"│ HP\t: {hp,3}/{maxHp,3}");
+            Console.WriteLine($"└ EXP\t: {exp:f3}/{maxExp:f3}");
         }
 
         // 함수의 구성요소 : 이름 ,리턴타입, 파라메터(매개변수),함수바디
