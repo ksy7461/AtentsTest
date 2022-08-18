@@ -28,6 +28,7 @@ namespace _01_Console
         private int strenth = 10;
         private int dexterity = 5;
         private int intellegence = 7;
+        private Random random = new Random();
 
         // 배열
         //int[] intArray;
@@ -42,7 +43,6 @@ namespace _01_Console
             // 3. hp는 maxhp와 같다.
             // 4. str,dex,int는 1~20 사이로 랜덤하게 정해진다.
             // 5. TestPrintStatus 함수를 이욯해서 최종 상태를 출력한다.
-            Random random = new Random();
             name = nameArray[random.Next() % 5];
             GenerateStatus();
         }
@@ -73,7 +73,6 @@ namespace _01_Console
 
         private void GenerateStatus()
         {
-            Random random = new Random();
             maxHp = random.Next() % 101 + 100; // maxHp = rand.Next(100, 201); 100~200 사이
             hp = maxHp;
             strenth = random.Next() % 20 + 1; //strenth = rand.Next(20)+1; 0~19 사이 + 1

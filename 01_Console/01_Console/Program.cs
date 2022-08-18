@@ -23,7 +23,7 @@ namespace _01_Console
             //GuGuDan();
 
             Character human1 = new Character(); //할당완료 (Instance화) 객체(Objcet) 생성 완료 (객체의 인스턴스를 만들었다)
-            Character human2 = new Character("개굴맨");
+            Character human2 = new Character("개미맨");
 
             human1.TestPrintStatus();
             human2.TestPrintStatus();
