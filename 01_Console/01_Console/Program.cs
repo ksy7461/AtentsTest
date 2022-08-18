@@ -20,11 +20,21 @@ namespace _01_Console
             // 실습 1. int 타입의 파라메터를 하나 받아서 그 숫자에 해당하는 구구단을 출력해주는 함수 만들기
             // 2. 1번에서 만드는 함수는 2~9 까지 입력이 들어오면 해당 구구단 출력. 그 외의 숫자는 "잘못된 입력입니다." 라고출력
             // 3. 메인 함수에서 숫자를 하나 입력하는 코드가 있어야 한다.
-            GuGuDan();
+            //GuGuDan();
+
+            Character human1 = new Character(); //할당완료 (Instance화) 객체(Objcet) 생성 완료 (객체의 인스턴스를 만들었다)
+            Character human2 = new Character("개굴맨");
+
+            human1.TestPrintStatus();
+            human2.TestPrintStatus();
+
+            human1.Attack(human2);
+            human2.TestPrintStatus();
+            human2.Attack(human1);
+            human1.TestPrintStatus();
 
             //가위바위보
-
-            RSP();
+            //RSP();
 
             Console.ReadKey();                // 키 입력 대기
 
