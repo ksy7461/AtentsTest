@@ -20,14 +20,93 @@ namespace _01_Console
             // 실습 1. int 타입의 파라메터를 하나 받아서 그 숫자에 해당하는 구구단을 출력해주는 함수 만들기
             // 2. 1번에서 만드는 함수는 2~9 까지 입력이 들어오면 해당 구구단 출력. 그 외의 숫자는 "잘못된 입력입니다." 라고출력
             // 3. 메인 함수에서 숫자를 하나 입력하는 코드가 있어야 한다.
-            
-         
+            GuGuDan();
+
+            //가위바위보
+
+            RSP();
 
             Console.ReadKey();                // 키 입력 대기
 
             //Main함수 끝
         }
 
+        private static void GuGuDan()
+        {
+            string temp;
+            int num;
+            Console.Write("구구단 숫자를 입력해주세요.(2~9) : ");
+            temp = Console.ReadLine();
+            int.TryParse(temp, out num);
+            if (num > 1 && num < 10)
+            {
+                Console.WriteLine($"{num}단 출력");
+                for (int i = 1; i < 10; i++)
+                {
+                    Console.WriteLine($"{num,2} * {i,2} = {num * i,2}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+            }
+        }
+
+        private static void RSP()
+        {
+            Console.Write("가위바위보를 입력해주세요 : ");
+            Random r = new Random();
+            int num = r.Next();
+            string temp = Console.ReadLine();
+            if (num % 3 == 0)
+            {
+                Console.WriteLine("상대가 바위를 냈습니다.");
+                if (temp == "바위")
+                {
+                    Console.WriteLine("비겼습니다.");
+                }
+                else if (temp == "가위")
+                {
+                    Console.WriteLine("상대가 승리하였습니다.");
+                }
+                else
+                {
+                    Console.WriteLine("당신이 승리하였습니다.");
+                }
+            }
+            else if (num % 3 == 1)
+            {
+                Console.WriteLine("상대가 가위를 냈습니다.");
+                if (temp == "바위")
+                {
+                    Console.WriteLine("당신이 승리하였습니다.");
+                }
+                else if (temp == "가위")
+                {
+                    Console.WriteLine("비겼습니다.");
+                }
+                else
+                {
+                    Console.WriteLine("상대가 승리하였습니다.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("상대가 보를 냈습니다.");
+                if (temp == "바위")
+                {
+                    Console.WriteLine("상대가 승리하였습니다.");
+                }
+                else if (temp == "가위")
+                {
+                    Console.WriteLine("당신이 승리하였습니다.");
+                }
+                else
+                {
+                    Console.WriteLine("비겼습니다.");
+                }
+            }
+        }
         private static void Test_Funtion()
         {
             string name = "너굴맨";
