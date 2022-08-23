@@ -65,11 +65,19 @@ namespace _01_Console
             // rand.NextDouble() : 0~1
             // rand.NextDouble() * 1.5f : 0~1.5
             // ((rand.NextDouble() * 1.5f) +1) : 1~2.5
+            int requireMp = 10;
+            if (mp - requireMp > 0)
+            {
+                int damage = (int)((rand.NextDouble() * 1.5f) + 1) * intellegence; // 지능을 1 ~2.5 한결과에 소수점 제거
 
-            int damage = (int)((rand.NextDouble() * 1.5f) + 1) * intellegence; // 지능을 1 ~2.5 한결과에 소수점 제거
-
-            Console.WriteLine($"{name}이 {target.Name}에게 스킬을 합니다.(공격력 : {damage})");
-            target.TakeDamage(damage);
+                Console.WriteLine($"{name}이 {target.Name}에게 스킬을 합니다.(공격력 : {damage})");
+                target.TakeDamage(damage);
+                mp -= requireMp;
+            }
+            else
+            {
+                Console.WriteLine("마나가 부족합니다.");
+            }
         }
 
         public void Defense()
@@ -84,7 +92,7 @@ namespace _01_Console
             {
                 Console.WriteLine("방어 발동! 받는 데미지가 절반 감소합니다.");
                 remainsDefenseCount--;
-                damage >>= damage;
+                damage >>= damage;  // 데미지/2
             }
             base.TakeDamage(damage);
         }

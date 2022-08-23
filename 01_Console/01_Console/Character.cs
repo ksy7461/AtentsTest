@@ -24,8 +24,11 @@ namespace _01_Console
         protected int strenth = 10;
         protected int dexterity = 5;
         protected int intellegence = 7;
-
         protected bool isDead = false;
+
+        protected Random rand;
+
+        string[] nameArray = { "너굴맨", "개굴맨", "가", "나", "다" }; // nameArray에 기본값 설정(선언과 할당을 동시에 처리)
 
         public string Name => name;
         public bool IsDead => isDead;   // 간단하게 읽기전용 프로퍼티 만드는 방법
@@ -45,9 +48,6 @@ namespace _01_Console
         //int[] intArray; // 인티저를 여러개 가질 수 있는 배열
         //intArray = new int[5];    // 인티저를 5개 가질 수 있도록 할당
 
-        string[] nameArray = { "너굴맨", "개굴맨", "가", "나", "다" }; // nameArray에 기본값 설정(선언과 할당을 동시에 처리)
-
-        protected Random rand;
 
         public int HP
         {
@@ -71,11 +71,6 @@ namespace _01_Console
             }
         }
 
-        private void Dead()
-        {
-            Console.WriteLine($"{name}이 사망");
-            isDead = true;
-        }
 
         public Character()
         {
@@ -95,6 +90,7 @@ namespace _01_Console
             // 시간 : 1시 20분 -> 1시 50분
         }
 
+        //생성자
         public Character(string newName)
         {
             //Console.WriteLine($"생성자 호출 - {newName}");
@@ -104,6 +100,8 @@ namespace _01_Console
             GenerateStatus();
         }
 
+
+        
         public virtual void GenerateStatus()
         {
             maxHP = rand.Next(100, 201);    // 100에서 200 중에 랜덤으로 선택
@@ -142,6 +140,11 @@ namespace _01_Console
             Console.WriteLine($"┃ 민첩\t:\t{dexterity,2}");
             Console.WriteLine($"┃ 지능\t:\t{intellegence,2}");
             Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+        }
+        private void Dead()
+        {
+            Console.WriteLine($"{name}이 사망");
+            isDead = true;
         }
     }
 }

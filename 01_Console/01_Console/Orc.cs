@@ -13,7 +13,8 @@ namespace _01_Console
         const int MaxRage = 100;
         bool berserker = false;
 
-        public Orc(string _name) : base(_name)
+        //이름을 입력받는 생성자(생성자는 상속이 안되기 때문에 항상 새로 만들어 주어야한다.)
+        public Orc(string _name) : base(_name) //Character(string newName)실행됨
         {
             rage = 0;
         }
@@ -42,20 +43,20 @@ namespace _01_Console
             berserker = on;
             if (berserker)
             {
-                strenth *= 2;
+                strenth *= 2; //버서커모드면 힘2배
             }
             else
             {
-                strenth = strenth >> 1;
+                strenth = strenth >> 1; //아니면 힘/2
             }
         }
 
         public override void TakeDamage(int damage)
         {
-            rage += (int)(MaxRage * 0.1f + damage * 0.1f);
+            rage += (int)(MaxRage * 0.1f + damage * 0.1f); //맞을떄마다 분노 축적
             if(rage >= MaxRage)
             {
-                BerserkerMode(true);
+                BerserkerMode(true); //MaxRage보다 커지면 분노모드
             }
 
             base.TakeDamage(damage);
