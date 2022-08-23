@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,17 +23,55 @@ namespace _01_Console
             // 3. 메인 함수에서 숫자를 하나 입력하는 코드가 있어야 한다.
             //GuGuDan();
 
-            Character human1 = new Character(); //할당완료 (Instance화) 객체(Objcet) 생성 완료 (객체의 인스턴스를 만들었다)
-            Character human2 = new Character("개미맨");
+            Human human = new Human("사람");
+            Orc orc = new Orc("오크");
 
-            human1.TestPrintStatus();
-            human2.TestPrintStatus();
+            human.TestPrintStatus();
+            orc.TestPrintStatus();
 
-            human1.Attack(human2);
-            human2.TestPrintStatus();
-            human2.Attack(human1);
-            human1.TestPrintStatus();
 
+            Console.WriteLine("\n\n---------------------------전투시작-------------------------\n\n");
+
+
+            while (true) // 무한 루프
+            {
+                int selection = 0;
+                do
+                {
+                    Console.Write("행동을 선택하세요 1)공격 2)스킬 3)방어 : ");
+                    string temp = Console.ReadLine();
+                    int.TryParse(temp, out selection);
+
+                } while (selection != 1 && selection !=2 && selection !=3); //while (selection <1 || selection >3);
+
+                switch (selection){
+                    case 1:
+                        human.Attack(orc);
+                        break;
+                    case 2:
+                        human.Skill(orc);
+                        break;
+                    case 3:
+                        human.Defense();
+                        break;
+                    default:
+                        break;
+                }
+
+                orc.TestPrintStatus();
+                if (orc.IsDead)
+                {
+                    Console.WriteLine("영희 승리");
+                    break;
+                }
+                orc.Attack(human);
+                human.TestPrintStatus();
+                if (human.IsDead)
+                {
+                    Console.WriteLine("철수 승리");
+                    break;
+                }
+            }
             //가위바위보
             //RSP();
 
