@@ -40,7 +40,7 @@ public class Move : MonoBehaviour
 
         //TestOldInputManager();
 
-        //transform.position += (speed * Time.deltaTime * dir);
+        transform.position += (speed * Time.deltaTime * dir);
 
         // Input System
         // Event-driven(이벤트 드리븐) 방식으로 구현 -> 일이 있을 때만 동작한다.(전력을 아끼기에 적합한 구조)
@@ -59,10 +59,23 @@ public class Move : MonoBehaviour
         }
         if (context.canceled) //매핑된 키가 떨어졌을 때.
         {
-            Debug.Log("입력들어옴 - canceled");
+            Debug.Log("입력들어옴 - canceled");  //0,0
         }
         Vector2 inputDir = context.ReadValue<Vector2>();
         Debug.Log(inputDir);
+        dir = inputDir;
+
+        // Vector : 방향과 크기
+        // Vector2 : 유니티에서 제공하는 구조체 (struct). 2차원 백터를 표현하기 위한 구조체 (x,y)
+        // Vector3 : 3차원 벡터를 표현하기 위한 구조체 (x,y,z)
+    }
+
+    public void FireInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("발사!");
+        }
     }
 
     /// <summary>
