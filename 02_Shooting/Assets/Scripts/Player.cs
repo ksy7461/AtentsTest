@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     Animator anim;
 
     public float speed=5.0f;
+    public GameObject bullet;
+
     float boost = 1.0f;
     Vector3 dir = new Vector3();
     Rigidbody2D rigid;
@@ -90,12 +92,43 @@ public class Player : MonoBehaviour
         //rigid.AddForce(speed * Time.fixedDeltaTime * dir); //관성있는 움직임
         rigid.MovePosition(transform.position + speed * Time.fixedDeltaTime * boost * dir);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionEnter2D");
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionStay2D");
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionExit2D");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("OnTriggerEnter2D");
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("OnTriggerStay2D");
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("OnTriggerExit2D");
+    }
+
     private void OnMove(InputAction.CallbackContext context)
     {
         //Exception : 예외 상황( 무엇을 해야 할지 지정이 안되어 있는 예외 일때 )
         //throw new NotImplementedException(); //NtopImplemetedException을 실행해라 => 강제로 죽여라
 
-        Debug.Log("이동 입력");
+        //Debug.Log("이동 입력");
         //Vector2 tempdir = context.ReadValue<Vector2>();
         dir = context.ReadValue<Vector2>();
 
@@ -104,6 +137,7 @@ public class Player : MonoBehaviour
     private void OnFire(InputAction.CallbackContext context)
     {
         Debug.Log("발사!");
+        Instantiate(bullet,transform.position,Quaternion.identity);
     }
     private void OnBooster(InputAction.CallbackContext context)
     {
