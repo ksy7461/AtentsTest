@@ -16,8 +16,9 @@ public class Player : MonoBehaviour
     //Func<int,float> del4; //리턴타입이 int이고 파라메터는 float 하나인 delegate
     
     PlayerInputAction inputActions;
+    Animator anim;
 
-    float speed=5.0f;
+    public float speed=5.0f;
     float boost = 1.0f;
     Vector3 dir = new Vector3();
     Rigidbody2D rigid;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
     {
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>(); // 한번만 찾고 저장해서 계속 쓰기
+        anim = GetComponent<Animator>();
         // Awake -> InEnable -> Start : 대체적으로 이 순서
     }
 
@@ -96,6 +98,8 @@ public class Player : MonoBehaviour
         Debug.Log("이동 입력");
         //Vector2 tempdir = context.ReadValue<Vector2>();
         dir = context.ReadValue<Vector2>();
+
+        anim.SetFloat("InputY",dir.y);
     }
     private void OnFire(InputAction.CallbackContext context)
     {
