@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,10 +20,19 @@ public class Player : MonoBehaviour
 
     public float speed=5.0f;
     public GameObject bullet;
+    public GameObject stone;
+    public float fireInterval = 0.5f;
+
+    IEnumerator fireCoroutine;
 
     float boost = 1.0f;
+    //float spawnTime = 0;
+    //float spawnTimeMax = 1;
     Vector3 dir = new Vector3();
     Rigidbody2D rigid;
+
+    Transform[] firePosition; // 트랜스폼을 여러개 가지는 배열
+    public GameObject flash;
 
     /// <summary>
     /// 이 스크립트가 들어있는 게임 오브젝트가 생성된 직후에 호출
@@ -33,6 +42,15 @@ public class Player : MonoBehaviour
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>(); // 한번만 찾고 저장해서 계속 쓰기
         anim = GetComponent<Animator>();
+
+        firePosition = new Transform[transform.childCount-1];
+        for (int i = 0; i < transform.childCount-1; i++)
+        {
+            firePosition[i] = transform.GetChild(i);
+        }
+        //flash = transform.GetChild[transform.childCount - 1].gameObject;
+
+        fireCoroutine = Fire();
         // Awake -> InEnable -> Start : 대체적으로 이 순서
     }
 
@@ -44,7 +62,9 @@ public class Player : MonoBehaviour
         inputActions.Player.Enable(); // 오브젝트가 생성되면 입력을 받도록 활성화
         inputActions.Player.Move.performed += OnMove; //performed일 떄 OnMove 함수 실행되도록 연결
         inputActions.Player.Move.canceled += OnMove; // canceled일 때 OnMove 함수 실행되도록 연결
-        inputActions.Player.Fire.performed += OnFire;
+        //inputActions.Player.Fire.performed += OnFire;
+        inputActions.Player.Fire.performed += OnFireStart;
+        inputActions.Player.Fire.canceled += OnFireStop;
         inputActions.Player.Booster.performed += OnBooster;
         inputActions.Player.Booster.canceled += OnBooster;
     }
@@ -57,7 +77,9 @@ public class Player : MonoBehaviour
     {
         inputActions.Player.Booster.canceled -= OnBooster;
         inputActions.Player.Booster.performed -= OnBooster;
-        inputActions.Player.Fire.performed -= OnFire;
+        //inputActions.Player.Fire.performed -= OnFire;
+        inputActions.Player.Fire.canceled -= OnFireStop;
+        inputActions.Player.Fire.performed -= OnFireStart;
         inputActions.Player.Move.canceled -= OnMove; //연결해 놓은 함수 해제(안전을위해)
         inputActions.Player.Move.performed -= OnMove;
         inputActions.Player.Disable(); // 오브젝트가 사라질 때 더이상 입력을 받지 않도록 
@@ -91,36 +113,46 @@ public class Player : MonoBehaviour
 
         //rigid.AddForce(speed * Time.fixedDeltaTime * dir); //관성있는 움직임
         rigid.MovePosition(transform.position + speed * Time.fixedDeltaTime * boost * dir);
+
+        //spawnTime += Time.deltaTime;
+        //if (spawnTime > spawnTimeMax)
+        //{
+        //    float value = Random.Range(-8.0f, 8.0f);
+        //    Vector3 vec3 = new Vector3(value, 5.0f);
+        //    Instantiate(stone, vec3, Quaternion.identity);
+        //    spawnTime = 0;
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionEnter2D");
+        //Debug.Log("OnCollisionEnter2D");
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionStay2D");
+        //Debug.Log("OnCollisionStay2D");
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionExit2D");
+        //Debug.Log("OnCollisionExit2D");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerEnter2D");
+        //Debug.Log("OnTriggerEnter2D");
+        //Debug.Log("게임 오버");
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerStay2D");
+        //Debug.Log("OnTriggerStay2D");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerExit2D");
+        //Debug.Log("OnTriggerExit2D");
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -134,11 +166,50 @@ public class Player : MonoBehaviour
 
         anim.SetFloat("InputY",dir.y);
     }
-    private void OnFire(InputAction.CallbackContext context)
+    private void OnFireStart(InputAction.CallbackContext _)
     {
-        Debug.Log("발사!");
-        Instantiate(bullet,transform.position,Quaternion.identity);
+        //Debug.Log("발사!");
+        //float value = Random.Range(0.0f, 10.0f);  // value에는 0.0 ~ 10.0의 랜덤값이 들어간다.
+        //isFiring = true;
+        StartCoroutine(fireCoroutine);
+
     }
+
+    private void OnFireStop(InputAction.CallbackContext _)
+    {
+        //isFiring = false;
+        //StopAllCoroutines();
+        StopCoroutine(fireCoroutine);
+    }
+
+    IEnumerator Fire()
+    {
+        //yield return null;      // 다음 프레임에 이어서 시작해라
+        //yield return new WaitForSeconds(1.0f);  // 1초 후에 이어서 시작해라
+
+        while (true)
+        {
+            for (int i = 0; i < firePosition.Length; i++)
+            {
+                Instantiate(bullet, firePosition[i].position, firePosition[i].rotation);
+
+                //GameObject obj = Instantiate(bullet, firePosition[i].position, Quaternion.identity);
+                //obj.transform.rotation = firePosition[i].rotation;  //firePosition[i]의 회전값을 그대로 사용한다.
+                //Vector3 angle = firePosition[i].rotation.eulerAngles; // 현제 회전 값을 x,y,z축 별로 몇도씩 회전했는지 확인
+            }
+            flash.SetActive(true);
+            StartCoroutine(FlashOff());
+
+            yield return new WaitForSeconds(fireInterval);
+        }
+    }
+
+    IEnumerator FlashOff()
+    {
+        yield return new WaitForSeconds(0.1f);
+        flash.SetActive(false);
+    }
+
     private void OnBooster(InputAction.CallbackContext context)
     {
         if (context.canceled)
